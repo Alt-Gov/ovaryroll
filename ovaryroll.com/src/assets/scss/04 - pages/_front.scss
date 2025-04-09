@@ -1,6 +1,6 @@
 @use '../utilities' as utilities;
 
-.home-wrap {
+.front {
   .base__hero {
     margin-bottom: 0;
 
@@ -8,7 +8,10 @@
       display: none;
     }
   }
-
+ .top {
+  background-image: url(../images/grasses.svg);
+  background-size: 33%;
+ }
   .main {
     margin: 0 !important;
 

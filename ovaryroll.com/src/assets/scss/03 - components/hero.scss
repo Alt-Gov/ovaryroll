@@ -52,6 +52,7 @@
 
         @include utilities.breakpoint(xl) {
           aspect-ratio: 3 / 1;
+          object-position: 0% 20%;
         }
       }
 

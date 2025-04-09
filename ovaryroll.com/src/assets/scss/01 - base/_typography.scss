@@ -4,6 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Roboto+Condensed:wght@700&family=Roboto:wght@100;500&display=swap');
 
 body {
+  margin: 0;
   text-rendering: optimizeLegibility;
   font-size: utilities.$font-sm;
   font-family: utilities.$font-sans;
