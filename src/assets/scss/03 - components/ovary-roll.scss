@@ -1,0 +1,66 @@
+@use '../utilities' as utilities;
+
+.game {
+    text-align: center;
+
+    .hidden {
+        display: none;
+    }
+
+    #character-select .avatars {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .avatar {
+        width: 120px;
+        height: 180px;
+        border: none;
+        border-radius: 50% 50% 45% 45%;
+        cursor: pointer;
+        transition: transform 0.2s;
+
+        &:nth-last-of-type(1) {
+            background: utilities.$pink
+        }
+
+        &:nth-last-of-type(2) {
+            background: utilities.$purple
+        }
+
+        &:nth-last-of-type(3) {
+            background: utilities.$blue
+        }
+
+        &:nth-last-of-type(3) {
+            background: utilities.$gold
+        }
+
+        &.selected {
+            -webkit-box-shadow: 0px 0px 10px 5px rgba(#000, 0.5);
+            -moz-box-shadow: 0px 0px 10px 5px rgba(#000, 0.5);
+            box-shadow: 0px 0px 10px 5px rgba(#000, 0.5);
+        }
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    canvas {
+        margin-top: 1rem;
+    }
+
+    #message {
+        margin: 2rem 0;
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+    .info-sections {
+        margin: utilities.$space-xl auto;
+        max-width: 1200px;
+        width: 90%;
+    }
+}

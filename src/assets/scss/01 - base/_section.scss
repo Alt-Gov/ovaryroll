@@ -13,11 +13,12 @@
 
   &.primary {
     background: utilities.$primary;
-    color: #fff;
+    color: #000;
   }
 
   &.primary-lt {
     background: utilities.$primary-lt;
+    color: #000;
   }
 
   &.primary-dk {
@@ -27,6 +28,7 @@
 
   &.secondary {
     background: utilities.$secondary;
+    color: #fff;
   }
 
   &.tertiary {

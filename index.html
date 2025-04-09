@@ -38,14 +38,9 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
             </div>
         </banner>
-        <section class="section top has-bg primary" role="complementary" aria-label="Featured Top Content"
-            id="featured">
+        <main class="section top has-bg primary" role="complementary" aria-label="Featured Top Content" id="featured">
             <div class="container">
                 <div class="row">
                     <div class="base__layout">
@@ -87,27 +82,207 @@
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="grid three">
-                        <div class="text-card"></div>
-                        <div class="text-card"></div>
-                        <div class="text-card"></div>
-                    </div>
                 </div>
             </div>
-        </section>
-        <main class="main" role="main" aria-label="Main Content">
-            <section class="content" aria-label="Content">
-                <div class="container">
-                    <div class="no-sidebar">
-                        <div class="main-content">{{ page.content }}</div>
+            <div class="game">
+                <section id="character-select">
+                    <h3>Select your ovary:</h3>
+                    <div class="avatars">
+                        <button class="avatar" data-id="1"></button>
+                        <button class="avatar" data-id="2"></button>
+                        <button class="avatar" data-id="3"></button>
+                        <button class="avatar" data-id="4"></button>
                     </div>
+                    <button class="btn tertiary large" id="start-game">Roll!</button>
+                </section>
+                <section id="game-canvas" class="">
+                    <canvas id="roll-canvas"></canvas>
+                </section>
+
+                <section id="result" class="hidden">
+                    <div id="message"></div>
+                    <button class="btn tertiary large" id="play-again">Play Again</button>
+                </section>
+                <div id="info-sections" class="info-sections hidden">
+                    <section id="repo-rights">
+                        <div class="base__layout">
+                            <div class="container">
+                                <div class="item-grid">
+                                    <div class="clearfix grid two normal">
+                                        <div class="base__text-card white">
+                                            <div class="inner">
+                                                <h3 class="heading">What’s at stake: Reproductive Rights</h3>
+                                                <div class="blurb">
+                                                    <p>Trump revoked multiple executive orders signed by President Biden
+                                                        that sought to
+                                                        protect
+                                                        access to reproductive health care. Trump also signed an EO
+                                                        re-affirming the
+                                                        Hyde Amendment,
+                                                        which prevents federal funding from being used to fund
+                                                        abortions. And it goes
+                                                        even further,
+                                                        potentially ending funding for programs that are seen to
+                                                        “promote” abortion in
+                                                        any way, like
+                                                        family planning services.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="base__text-card white">
+                                            <div class="inner">
+                                                <h3 class="heading">How you can help</h3>
+                                                <div class="blurb">
+                                                    <p><a href="https://apiaryps.org/pso-list" target="_blank">Join your
+                                                            local or state
+                                                            practical
+                                                            support collective.</a> These groups serve abortion seekers
+                                                        by
+                                                        helping them with travel, lodging, food assistance, childcare or
+                                                        other basic
+                                                        needs, so that
+                                                        they can receive care safely and with dignity.</p>
+                                                    <p>ou can also fundraise on a micro level, because every donation
+                                                        counts for
+                                                        nonprofits. Host a
+                                                        clothing swap, or ask friends to meet for drinks, as well as
+                                                        donate $20 to an
+                                                        organization
+                                                        supporting reproductive rights. </p>
+
+                                                    <a href="https://pima.bibliocommons.com/v2/list/display/320779167/2131871219] "
+                                                        target="_blank">Check out the full list.</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="health-care">
+                        <div class="base__layout">
+                            <div class="container">
+                                <div class="item-grid">
+                                    <div class="clearfix grid two normal">
+                                        <div class="base__text-card white">
+                                            <div class="inner">
+                                                <h3 class="heading">What’s at stake: Voting Protections</h3>
+                                                <div class="blurb">
+                                                    <p>The Trump Administration has cut off or threatened funding for
+                                                        crucial research on women’s health, including studies to cure
+                                                        cancer, understand conditions like endometriosis and the impacts
+                                                        of menopause. The administration also has removed important
+                                                        research and information on women’s health from federal
+                                                        websites. </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="base__text-card white">
+                                            <div class="inner">
+                                                <h3 class="heading">How you can help</h3>
+                                                <div class="blurb"><a href="https://acog.quorum.us/action-center/"
+                                                        target="_blank">Get in touch with organizations that prioritize
+                                                        women’s health advocacy.</a> For example, the American College
+                                                    of
+                                                    Obstetricians and Gynecologists has an action center to help contact
+                                                    your elected officials and get involved in advocacy work. You also
+                                                    play an important role in educating your family and friends on
+                                                    women’s health issues that are too often ignored or misunderstood.
+                                                    Massachusetts General Hospital has a <a
+                                                        href="https://libguides.massgeneral.org/womens-health"
+                                                        target="_blank">collection of women’s health resources</a> you
+                                                    can share with others. </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="equal-employment">
+                        <div class="base__layout">
+                            <div class="container">
+                                <div class="item-grid">
+                                    <div class="clearfix grid two normal">
+                                        <div class="base__text-card white">
+                                            <div class="inner">
+                                                <h3 class="heading">What’s at stake: Equal Employment</h3>
+                                                <div class="blurb">
+                                                    <p>Trump removed longstanding protections for federal contract
+                                                        workers from workplace discrimination by rescinding Executive
+                                                        Order 11246. This will make it even harder for women to get good
+                                                        jobs in many industries fueled by federal investments,
+                                                        particularly the building trades. He’s also undermined civil
+                                                        rights enforcement across federal agencies, and has ended grant
+                                                        programs supporting women’s employment across the country as
+                                                        part of anti-DEI efforts. </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="base__text-card white">
+                                            <div class="inner">
+                                                <h3 class="heading">How you can help</h3>
+                                                <div class="blurb">
+                                                    <p>Unions not only help reduce the pay gap for women and people of
+                                                        color, they also help ensure access to health and retirement
+                                                        benefits, paid leave, predictable scheduling and more. They can
+                                                        also help protect women from workplace retaliation and
+                                                        harassment. If you’re unable to unionize, consider <a
+                                                            href="https://laworkercenternetwork.org/our-movement/"
+                                                            target="_blank">joining or volunteering</a> to help your
+                                                        local worker center. These centers help workers know and
+                                                        exercise their rights, particularly low-wage workers. </p>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="voting-protections">
+                        <div class="base__layout">
+                            <div class="container">
+                                <div class="item-grid">
+                                    <div class="clearfix grid two normal">
+                                        <div class="base__text-card white">
+                                            <h3 class="heading">What’s at stake: Voting Rights</h3>
+                                            <div class="blurb">
+                                                <p>Trump issued an executive order making it harder for millions of
+                                                    citizens to participate in elections, especially women, through
+                                                    extreme provisions. Because nearly 80% of married women (more than
+                                                    69 million) adopt their partner’s surname, they would be ineligible
+                                                    to register to vote if the name on their ID does not directly match
+                                                    their proof of citizenship. </p>
+                                            </div>
+                                        </div>
+                                        <div class="base__text-card white">
+                                            <div class="inner">
+                                                <h3 class="heading">How you can help</h3>
+                                                <div class="blurb">
+                                                    <p>Host your own voter registration drive to make sure women are
+                                                        registered in time to make their voices count at the polls. <a href="https://www.rockthevote.org/get-involved/help-register-voters/" target="_blank">Get resources from Rock the Vote.</a>
+                                                        </p><p>
+                                                        You can also promote voting resources and information like
+                                                        <a href="https://www.vote411.org" target="_blank">vote411.org</a> – a user-friendly site created by the League of
+                                                        Women Voters Education Fund – on your social media accounts.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
-            </section>
+            </div>
         </main>
         <section class="feature" role="complementary" aria-label="Featured Bottom Content">
-            <div class="full-width-cta secondary {{ class }} " style="background-image: url({{ bgimg }})">
+            <div class="full-width-cta secondary has-bg">
                 <div class="blurb center ">
                     <div class="container">
                         <div class="inner">
@@ -123,7 +298,8 @@
         </section>
         <footer></footer>
     </div>
-    <script src="assets/js/script.js"></script>
+    <script src="src/assets/js/script.min.js"></script>
+    <script src="src/assets/js/ovary-roll.min.js"></script>
 </body>
 
 </html>
