@@ -1,0 +1,111 @@
+@use '../utilities' as utilities;
+
+
+.fact {
+  height: 100%;
+
+  .inner {
+    height: 100%;
+    padding: utilities.$space-lg;
+    text-align: center;
+  }
+
+  &.primary {
+    .inner {
+      background: utilities.$primary;
+      color: #fff;
+    }
+  }
+
+  &.primary-lt {
+    .inner {
+      background: utilities.$primary-lt;
+      color: #000;
+    }
+  }
+
+  &.primary-dk {
+    .inner {
+      background: utilities.$primary-dk;
+      color: #fff;
+    }
+  }
+
+  &.secondary {
+    .inner {
+      background: utilities.$secondary;
+      color: #000;
+    }
+  }
+
+  &.tertiary {
+    .inner {
+      background: utilities.$tertiary;
+      color: #000;
+    }
+  }
+
+  &.gray {
+    .inner {
+      background: utilities.$gray-xl;
+      color: #000;
+    }
+  }
+
+  &.black {
+    .inner {
+      background: #000;
+      color: #fff;
+    }
+  }
+
+  &.white {
+    .inner {
+      background: #fff;
+      color: #000;
+    }
+  }
+
+  &.bordered {
+    .inner {
+      background: #fff;
+      border: 2px solid utilities.$secondary;
+      color: #000;
+    }
+  }
+
+  .number {
+    display: flex;
+    font-family: utilities.$font-script;
+    font-size: utilities.$font-hero;
+    font-weight: 600;
+    gap: utilities.$space-xs;
+    justify-content: center;
+    line-height: 1em;
+    margin-bottom: utilities.$space-sm;
+
+    @include utilities.breakpoint(sm-max) {
+      font-size: utilities.$font-xl;
+    }
+  }
+
+  p {
+    font-family: utilities.$font-display;
+    font-size: utilities.$font-lg;
+    margin: 0 auto;
+    max-width: 250px;
+
+    + a {
+      background: rgba(#fff, .2);
+      border-radius: utilities.$border-radius;
+      color: #fff;
+      display: inline-block;
+      padding: utilities.$space-xs utilities.$space-md;
+      text-decoration: none;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

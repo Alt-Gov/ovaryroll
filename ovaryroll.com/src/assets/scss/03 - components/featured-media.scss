@@ -1,0 +1,157 @@
+@use '../utilities' as utilities;
+
+
+.base__featured-media {
+  margin: utilities.$space-xl 0;
+
+  .inner {
+    align-items: center;
+    display: grid;
+    gap: utilities.$space-xl;
+    grid: auto / 5fr 4fr;
+
+    @include utilities.breakpoint(sm-max) {
+      gap: utilities.$space-md;
+      grid: auto / 1fr;
+    }
+  }
+
+  &.right {
+    .inner {
+      grid: auto / 4fr 5fr;
+
+      @include utilities.breakpoint(sm-max) {
+        grid: auto / 1fr;
+      }
+    }
+
+    .img {
+      order: 1;
+
+      @include utilities.breakpoint(sm-max) {
+        order: 0;
+      }
+    }
+  }
+
+  &.has-bg {
+
+    &.primary {
+      .blurb {
+        background: utilities.$primary;
+      }
+    }
+
+    &.secondary {
+      .blurb {
+        background: utilities.$secondary;
+      }
+    }
+
+    &.tertiary {
+      .blurb {
+        background: utilities.$tertiary;
+      }
+
+      .action-link {
+        @include utilities.action-link(utilities.$tertiary , utilities.$gray-dk);
+      }
+    }
+
+    &.gray {
+      .blurb {
+        background: utilities.$gray-dk;
+      }
+    }
+
+    &.black {
+      .blurb {
+        background: #000;
+      }
+    }
+
+    &.white {
+      .blurb {
+        background: #fff;
+
+        h2,
+        h3,
+        h4 {
+          color: utilities.$primary;
+        }
+
+        p {
+          color: utilities.$gray-dk;
+        }
+      }
+    }
+
+    .inner {
+      gap: 0;
+    }
+
+    .blurb {
+      align-content: center;
+      color: #fff;
+      display: grid;
+      justify-items: left;
+      min-height: 100%;
+      padding: utilities.$space-xl;
+
+      @include utilities.breakpoint(sm-max) {
+        padding: utilities.$space-md;
+      }
+
+      h2,
+      h3,
+      h4 {
+        color: #fff;
+      }
+    }
+  }
+
+  .blurb {
+    align-self: center;
+    position: relative;
+    z-index: 2;
+
+    .btn {
+      margin: utilities.$space-md 0 0 0;
+    }
+  }
+
+  .img {
+    overflow: hidden;
+
+    img {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+    }
+  }
+}
+
+.base__layout {
+  .base__featured-media {
+    @include utilities.breakpoint(lg) {
+      margin: utilities.$space-xl auto;
+      width: 85%;
+    }
+
+    @include utilities.breakpoint(sm-max) {
+      margin: 0 auto;
+    }
+  }
+
+  .grid {
+
+    &.two,
+    &.three,
+    &.four {
+      .base__featured-media {
+        .inner {
+          grid: auto / 1fr;
+        }
+      }
+    }
+  }
+}

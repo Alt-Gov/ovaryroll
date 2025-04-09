@@ -1,0 +1,103 @@
+@use '../utilities' as utilities;
+
+
+.base__media-embed {
+  display: block;
+  margin: utilities.$space-lg 0;
+  overflow: hidden;
+  position: relative;
+
+  .media {
+    margin: 0;
+
+    img {
+      margin-bottom: utilities.$space-xl;
+    }
+
+    &.slick-slide {
+      @include utilities.breakpoint(sm-max) {
+        margin-bottom: utilities.$space-md;
+      }
+    }
+
+    img {
+      // aspect-ratio: 16 / 9;
+      margin-bottom: 0;
+      width: 100%;
+    }
+
+    .embed-responsive {
+      margin: 0;
+    }
+
+    .caption {
+      border-left: 3px solid utilities.$tertiary;
+      font-size: utilities.$font-xs;
+      line-height: 1.5em;
+      margin: utilities.$space-md 0 0 0;
+      padding: 0px utilities.$space-md 0 utilities.$space-md;
+
+      @include utilities.breakpoint(sm) {
+        padding: 0px calc(2 * utilities.$space-lg) 0 utilities.$space-md;
+      }
+
+      @include utilities.breakpoint(xs) {
+        margin: utilities.$space-md 0;
+        padding: 0 0 0 utilities.$space-md;
+      }
+    }
+  }
+
+  .slider {
+    margin-bottom: utilities.$space-xl;
+
+    @include utilities.breakpoint(sm-max) {
+      margin-bottom: 0;
+    }
+  }
+
+  .arrows {
+    bottom: 0;
+    position: absolute;
+    right: 0;
+
+    @include utilities.breakpoint(sm-max) {
+      bottom: auto;
+      position: relative;
+      text-align: center;
+      width: auto;
+    }
+
+    .arrow {
+      background: utilities.$primary-dk;
+      border-radius: 100%;
+      color: #fff;
+      cursor: pointer;
+      display: inline-block;
+      font-size: utilities.$font-sm;
+      height: 1.5em;
+      line-height: 1.5em;
+      text-align: center;
+      width: 1.5em;
+      @include utilities.transition(background .3s linear);
+
+      &:hover,
+      &:focus {
+        background: utilities.$primary;
+      }
+
+      &.slick-hidden {
+        display: none;
+      }
+
+      &.slick-disabled {
+        cursor: not-allowed;
+        opacity: .5;
+      }
+
+      + .arrow {
+        margin-left: utilities.$space-sm;
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@use '../utilities' as utilities;
+
+
+.base__image-card {
+    .img {
+        margin-bottom: utilities.$space-md;
+        position: relative;
+
+        img {
+            width: 100%;
+        }
+    }
+}
