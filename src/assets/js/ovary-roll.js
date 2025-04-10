@@ -74,23 +74,36 @@
     canvas.height = 600;
     gameSection.classList.add('hidden');
 
-    avatarButtons.forEach(button => {
-        const id = parseInt(button.dataset.id);
-        if (triedAvatars.includes(id)) button.classList.add('tried');
+    function updateTriedClasses() {
+        avatarButtons.forEach(button => {
+            const id = parseInt(button.dataset.id);
+            if (triedAvatars.includes(id)) {
+                button.classList.add('tried');
+                const randomRotation = (Math.random() * 30 - 15).toFixed(2);
+                button.style.setProperty('--egg-rotation', `${randomRotation}deg`);
+            } else {
+                button.classList.remove('tried');
+                button.style.removeProperty('--egg-rotation');
+            }
 
-        button.addEventListener('click', () => {
-            selectedAvatar = id;
-            pathD = SVG_PATHS[selectedAvatar - 1];
-            avatarButtons.forEach(btn => btn.classList.remove('selected'));
-            button.classList.add('selected');
-            messageSection.classList.add('hidden');
-            gameSection.classList.remove('hidden');
-            context.clearRect(0, 0, canvas.width, canvas.height);
-            cancelAnimationFrame(window.__eggAnimFrame);
-            if (window.__rollTempSvg && document.body.contains(window.__rollTempSvg)) document.body.removeChild(window.__rollTempSvg);
-            runGame();
+            button.addEventListener('click', () => {
+                selectedAvatar = id;
+                pathD = SVG_PATHS[selectedAvatar - 1];
+                avatarButtons.forEach(btn => btn.classList.remove('selected'));
+                button.classList.add('selected');
+                messageSection.classList.add('hidden');
+                gameSection.classList.remove('hidden');
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                cancelAnimationFrame(window.__eggAnimFrame);
+                if (window.__rollTempSvg && document.body.contains(window.__rollTempSvg)) {
+                    document.body.removeChild(window.__rollTempSvg);
+                }
+                runGame();
+            });
         });
-    });
+    }
+
+    updateTriedClasses();
 
     let pathD = SVG_PATHS[0];
 
@@ -156,6 +169,8 @@
         let lastPoint = null;
         let lastAngle = 0;
 
+        hideInfoSections();
+
         function drawFinishLine() {
             const startX = canvas.width - 80 + 10;
             const squareSize = 10;
@@ -218,26 +233,29 @@
         update();
     }
 
-    function showResultForAvatar(index) {
+    function showResultForAvatar(index, roundCount, triedAvatars) {
         const data = avatarData[index - 1];
-        const allTried = [1, 2, 3, 4].every(i => triedAvatars.includes(i));
-
-        if (allTried) {
-            messageBox.innerHTML = `Eggstraordinary work, super reSister! Nothing can slow your roll.`;
-            launchConfetti();
-        } else {
-            messageBox.textContent = data.message;
-        }
+        messageBox.textContent = (new Set(triedAvatars)).size >= 4
+            ? 'Eggstraordinary work, super reSister! Nothing can slow your roll.'
+            : data.message;
 
         document.querySelectorAll('#info-sections > section').forEach(section => {
             section.classList.add('hidden');
         });
+
         const sectionToShow = document.getElementById(data.sectionId);
         if (sectionToShow) {
             sectionToShow.classList.remove('hidden');
         }
 
         document.getElementById('info-sections').classList.remove('hidden');
+    }
+
+    function hideInfoSections() {
+        document.getElementById('info-sections').classList.add('hidden');
+        document.querySelectorAll('#info-sections > section').forEach(section => {
+            section.classList.add('hidden');
+        });
     }
 
     function launchConfetti() {
