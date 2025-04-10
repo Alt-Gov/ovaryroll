@@ -17,32 +17,38 @@
         "M0,289.26c15.94,8.21,35.49,7.73,52.13,1.07,16.65-6.65,30.57-18.97,41.51-33.17,8.97-11.65,16.63-25.11,29.35-32.46,35.19-20.35,83.82,17.65,118.87-2.93,16.72-9.81,24.29-30.65,23.95-50.03-.34-19.38-7.18-37.97-13.16-56.41s-11.21-37.86-8.25-57.02c3.83-24.81,22.41-46.77,46.24-54.66,30.75-10.18,64.38,2.41,92.23,18.94,14,8.3,27.67,17.92,37.05,31.22,20.64,29.26,15.99,69.85,1.8,102.72-10.57,24.49-26.23,50.46-18.26,75.92,5.61,17.92,21.79,30.32,38.05,39.71,16.64,9.6,35.06,17.5,54.26,17.11,19.2-.39,39.2-10.82,46.04-28.77,11.15-29.26-15.5-60.11-13.62-91.36,1.34-22.15,18.88-42.31,40.64-46.69,14.57-2.93,29.81.69,43.29,6.95,38,17.63,24.59,62.56,66.31,95.15,14.36,11.22,28.12,15.97,32.73,17.44,20.23,6.45,38.05,5.15,48.3,3.58"
     ];
 
-
     const OBSTACLE_IMAGE = new Image();
     OBSTACLE_IMAGE.src = './src/assets/images/bush.svg';
 
-    let imageLoaded = false;
-    OBSTACLE_IMAGE.onload = () => {
-        imageLoaded = true;
+    const TRUMP_IMAGE = new Image();
+    TRUMP_IMAGE.src = './src/assets/images/angry-trump.svg';
+
+    const OBSTACLE_IMAGES = {
+        bush: OBSTACLE_IMAGE,
+        trump: TRUMP_IMAGE
     };
 
     const OBSTACLES = {
         1: [
-            { t: 0.10, offsetX: 40, offsetY: 80, scale: 2 },
-            { t: 0.8, offsetX: 110, offsetY: 20, scale: 1.5 }
+            { t: 0.05, offsetX: 20, offsetY: 20, scale: 2, type: 'bush' },
+            { t: 0.8, offsetX: 70, offsetY: -30, scale: 1.5, type: 'bush' },
+            { t: 0.3, offsetX: -10, offsetY: -120, scale: 1.5, type: 'trump' }
         ],
         2: [
-            { t: 0.1, offsetX: -70, offsetY: 20, scale: 1 },
-            { t: 0.5, offsetX: -10, offsetY: -100, scale: 1.6 }
+            { t: 0, offsetX: 20, offsetY: 0, scale: 1, type: 'bush' },
+            { t: 0.4, offsetX: 20, offsetY: -50, scale: 1.6, type: 'bush' },
+            { t: 0.5, offsetX: 70, offsetY: -250, scale: 1.2, type: 'trump' }
         ],
         3: [
-            { t: 0.0, offsetX: 90, offsetY: 100, scale: 2 },
-            { t: 0.3, offsetX: 60, offsetY: -120, scale: 1 },
-            { t: 0.7, offsetX: 20, offsetY: -80, scale: 1.5 }
+            { t: 0.0, offsetX: 20, offsetY: 40, scale: 2, type: 'bush' },
+            { t: 0.3, offsetX: 10, offsetY: -190, scale: 1, type: 'bush' },
+            { t: 0.7, offsetX: 30, offsetY: -20, scale: 1.5, type: 'bush' },
+            { t: 0.2, offsetX: 20, offsetY: -80, scale: 1.3, type: 'trump' }
         ],
         4: [
-            { t: 0.10, offsetX: 40, offsetY: 80, scale: 2 },
-            { t: 0.6, offsetX: 80, offsetY: -30, scale: 1.5 }
+            { t: 0.0, offsetX: 10, offsetY: -240, scale: 2, type: 'bush' },
+            { t: 0.7, offsetX: 20, offsetY: -140, scale: 1.4, type: 'bush' },
+            { t: 0.3, offsetX: 40, offsetY: -20, scale: 2, type: 'trump' }
         ]
     };
 
@@ -58,26 +64,10 @@
     const context = canvas.getContext('2d');
 
     const avatarData = [
-        {
-            message: 'Nice roll! Reproductive rights are human rights.',
-            sectionId: 'repo-rights',
-            color: EGG_COLORS.pink
-        },
-        {
-            message: 'Healthcare matters — and so does your roll.',
-            sectionId: 'health-care',
-            color: EGG_COLORS.purple
-        },
-        {
-            message: 'You rolled for equity. You legend.',
-            sectionId: 'equal-employment',
-            color: EGG_COLORS.blue
-        },
-        {
-            message: 'Voting protections unlocked. Keep it rolling.',
-            sectionId: 'voting-protections',
-            color: EGG_COLORS.gold
-        }
+        { message: 'Nice roll! Reproductive rights are human rights.', sectionId: 'repo-rights', color: EGG_COLORS.pink },
+        { message: 'Healthcare matters — and so does your roll.', sectionId: 'health-care', color: EGG_COLORS.purple },
+        { message: 'You rolled for equity. You legend.', sectionId: 'equal-employment', color: EGG_COLORS.blue },
+        { message: 'Voting protections unlocked. Keep it rolling.', sectionId: 'voting-protections', color: EGG_COLORS.gold }
     ];
 
     canvas.width = 900;
@@ -86,9 +76,7 @@
 
     avatarButtons.forEach(button => {
         const id = parseInt(button.dataset.id);
-        if (triedAvatars.includes(id)) {
-            button.classList.add('tried');
-        }
+        if (triedAvatars.includes(id)) button.classList.add('tried');
 
         button.addEventListener('click', () => {
             selectedAvatar = id;
@@ -99,37 +87,53 @@
             gameSection.classList.remove('hidden');
             context.clearRect(0, 0, canvas.width, canvas.height);
             cancelAnimationFrame(window.__eggAnimFrame);
-
-            if (window.__rollTempSvg && document.body.contains(window.__rollTempSvg)) {
-                document.body.removeChild(window.__rollTempSvg);
-                window.__rollTempSvg = null;
-            }
-
-            if (imageLoaded) {
-                runGame();
-            } else {
-                OBSTACLE_IMAGE.onload = () => {
-                    imageLoaded = true;
-                    runGame();
-                };
-            }
+            if (window.__rollTempSvg && document.body.contains(window.__rollTempSvg)) document.body.removeChild(window.__rollTempSvg);
+            runGame();
         });
     });
 
     let pathD = SVG_PATHS[0];
+
+    function drawObstacles(getPointAtT) {
+        const obstacles = OBSTACLES[selectedAvatar] || [];
+        for (const obs of obstacles) {
+            const pt = getPointAtT(obs.t);
+            const img = OBSTACLE_IMAGES[obs.type];
+            if (!img || !img.complete) continue;
+            const scale = (obs.scale || 1) * 1.5;
+            const baseSize = 50;
+            const w = baseSize * scale;
+            const h = baseSize * scale;
+            context.drawImage(img, pt.x + obs.offsetX, pt.y + obs.offsetY, w, h);
+        }
+    }
+
+    function drawDebugPath(tempPath, totalLength, getPointAtT) {
+        const steps = 300;
+        context.beginPath();
+        for (let i = 0; i <= steps; i++) {
+            const len = (i / steps) * totalLength;
+            const point = getPointAtT(len / totalLength);
+            if (i === 0) {
+                context.moveTo(point.x, point.y);
+            } else {
+                context.lineTo(point.x, point.y);
+            }
+        }
+        // context.strokeStyle = '#ccc';
+        // context.lineWidth = 2;
+        // context.stroke();
+    }
 
     function runGame() {
         const tempSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         const tempPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         tempPath.setAttribute('d', pathD);
         tempSvg.setAttribute('viewBox', '0 0 900 600');
-        tempSvg.setAttribute('width', '900');
-        tempSvg.setAttribute('height', '600');
         tempSvg.appendChild(tempPath);
         tempSvg.style.position = 'absolute';
         tempSvg.style.width = '0';
         tempSvg.style.height = '0';
-        tempSvg.style.overflow = 'hidden';
         document.body.appendChild(tempSvg);
         window.__rollTempSvg = tempSvg;
 
@@ -138,10 +142,32 @@
         const step = 0.006;
         const velocity = step * totalLength;
         const eggColor = avatarData[selectedAvatar - 1].color;
-        const scaleX = 1.2;
-        const scaleY = canvas.height / 600;
-        const horizontalOffset = -15;
-        const verticalOffset = 40;
+        const scaleX = 1.15;
+        const scaleY = (canvas.height / 600) * 1.15;
+        const horizontalOffset = (canvas.width - 900) / 2;
+        const getPointAtT = (t) => {
+            const point = tempPath.getPointAtLength(t * totalLength);
+            return {
+                x: point.x * scaleX + horizontalOffset,
+                y: point.y * scaleY + 40
+            };
+        };
+
+        let lastPoint = null;
+        let lastAngle = 0;
+
+        function drawFinishLine() {
+            const startX = canvas.width - 80 + 10;
+            const squareSize = 10;
+            const cols = 4;
+            const rows = Math.ceil(canvas.height / squareSize);
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    context.fillStyle = (row + col) % 2 === 0 ? '#000' : '#fff';
+                    context.fillRect(startX + col * squareSize, row * squareSize, squareSize, squareSize);
+                }
+            }
+        }
 
         function drawEgg(x, y, angle) {
             const width = 40;
@@ -157,77 +183,26 @@
             context.restore();
         }
 
-        function drawFinishLine() {
-            const startX = canvas.width - 80 + 10;
-            const squareSize = 10;
-            const cols = 4;
-            const rows = Math.ceil(canvas.height / squareSize);
-
-            for (let row = 0; row < rows; row++) {
-                for (let col = 0; col < cols; col++) {
-                    context.fillStyle = (row + col) % 2 === 0 ? '#000' : '#fff';
-                    context.fillRect(startX + col * squareSize, row * squareSize, squareSize, squareSize);
-                }
-            }
-        }
-
-        function showResultForAvatar(index) {
-            const data = avatarData[index - 1];
-            const sectionToShow = document.getElementById(data.sectionId);
-            if (sectionToShow) {
-                sectionToShow.classList.remove('hidden');
-            }
-            document.getElementById('info-sections').classList.remove('hidden');
-            messageBox.textContent = data.message;
-        }
-
         function update() {
-            if (distance < totalLength) {
+            if (distance + velocity < totalLength) {
                 window.__eggAnimFrame = requestAnimationFrame(update);
                 context.clearRect(0, 0, canvas.width, canvas.height);
                 drawFinishLine();
+                drawDebugPath(tempPath, totalLength, getPointAtT);
+                drawObstacles(getPointAtT);
 
-                const steps = 300;
-                context.beginPath();
-                for (let i = 0; i <= steps; i++) {
-                    const len = (i / steps) * totalLength;
-                    const raw = tempPath.getPointAtLength(len);
-                    const px = raw.x * scaleX + horizontalOffset;
-                    const py = raw.y * scaleY + verticalOffset;
-                    i === 0 ? context.moveTo(px, py) : context.lineTo(px, py);
-                }
-                context.strokeStyle = '#ccc';
-                context.lineWidth = 2;
-                context.stroke();
-
-                const currentObstacles = OBSTACLES[selectedAvatar] || [];
-                currentObstacles.forEach(({ t, offsetX, offsetY, scale }) => {
-                    const point = tempPath.getPointAtLength(t * totalLength);
-                    const x = point.x * scaleX + horizontalOffset + offsetX;
-                    const y = point.y * scaleY + verticalOffset + offsetY;
-                    const baseSize = 75;
-                    const size = baseSize * (scale || 1);
-                    if (imageLoaded && OBSTACLE_IMAGE.complete) {
-                        context.drawImage(OBSTACLE_IMAGE, x - size / 2, y - size / 2, size, size);
-                    }
-                });
-
-                const rawCurrent = tempPath.getPointAtLength(distance);
-                const current = {
-                    x: rawCurrent.x * scaleX + horizontalOffset,
-                    y: rawCurrent.y * scaleY + verticalOffset
-                };
-                const rawNext = tempPath.getPointAtLength(Math.min(distance + velocity * 0.5, totalLength));
-                const next = {
-                    x: rawNext.x * scaleX + horizontalOffset,
-                    y: rawNext.y * scaleY + verticalOffset
-                };
+                const current = getPointAtT(distance / totalLength);
+                const next = getPointAtT(Math.min((distance + velocity * 0.5) / totalLength, 1));
                 const angle = Math.atan2(next.y - current.y, next.x - current.x);
-
                 drawEgg(current.x, current.y, angle);
+
+                lastPoint = current;
+                lastAngle = angle;
                 distance += velocity;
             } else {
+                drawEgg(lastPoint.x, lastPoint.y, lastAngle);
                 cancelAnimationFrame(window.__eggAnimFrame);
+                if (document.body.contains(tempSvg)) document.body.removeChild(tempSvg);
                 roundCount++;
                 localStorage.setItem('resistanceRollRounds', roundCount);
                 if (!triedAvatars.includes(selectedAvatar)) {
@@ -241,5 +216,36 @@
         }
 
         update();
+    }
+
+    function showResultForAvatar(index) {
+        const data = avatarData[index - 1];
+        const allTried = [1, 2, 3, 4].every(i => triedAvatars.includes(i));
+
+        if (allTried) {
+            messageBox.innerHTML = `Eggstraordinary work, super reSister! Nothing can slow your roll.`;
+            launchConfetti();
+        } else {
+            messageBox.textContent = data.message;
+        }
+
+        document.querySelectorAll('#info-sections > section').forEach(section => {
+            section.classList.add('hidden');
+        });
+        const sectionToShow = document.getElementById(data.sectionId);
+        if (sectionToShow) {
+            sectionToShow.classList.remove('hidden');
+        }
+
+        document.getElementById('info-sections').classList.remove('hidden');
+    }
+
+    function launchConfetti() {
+        const end = Date.now() + 1000;
+        (function frame() {
+            confetti({ particleCount: 4, angle: 60, spread: 55, origin: { x: 0 } });
+            confetti({ particleCount: 4, angle: 120, spread: 55, origin: { x: 1 } });
+            if (Date.now() < end) requestAnimationFrame(frame);
+        })();
     }
 })();
