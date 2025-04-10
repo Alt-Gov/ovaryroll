@@ -1,6 +1,8 @@
 @use '../utilities' as utilities;
 
 .game {
+    background: url(../images/grasses.svg) #9ac53c;
+    background-size: 33%;
     text-align: center;
 
     .hidden {
@@ -10,13 +12,13 @@
     #character-select .avatars {
         display: flex;
         justify-content: center;
-        gap: 1rem;
+        gap: utilities.$space-lg;
         margin-bottom: 1rem;
     }
 
     .avatar {
         width: 120px;
-        height: 180px;
+        height: 160px;
         border: none;
         border-radius: 50% 50% 45% 45%;
         cursor: pointer;
