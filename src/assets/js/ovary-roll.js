@@ -202,7 +202,9 @@
           } else {
             drawEgg(lastPoint.x, lastPoint.y, lastAngle);
             requestAnimationFrame(() => {
-              document.body.removeChild(tempSvg);
+              if (document.body.contains(tempSvg)) {
+                document.body.removeChild(tempSvg);
+              }
               roundCount++;
               localStorage.setItem('resistanceRollRounds', roundCount);
 
