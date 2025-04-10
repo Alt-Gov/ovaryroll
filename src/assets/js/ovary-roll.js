@@ -53,7 +53,7 @@
 
     canvas.width = 900;
     canvas.height = 600;
-    gameSection.classList.add('hidden'); // Hide canvas initially
+    gameSection.classList.add('hidden');
 
     avatarButtons.forEach(button => {
         const id = parseInt(button.dataset.id);
@@ -70,16 +70,19 @@
             gameSection.classList.remove('hidden');
             context.clearRect(0, 0, canvas.width, canvas.height);
             cancelAnimationFrame(window.__eggAnimFrame);
+
+            if (window.__rollTempSvg && document.body.contains(window.__rollTempSvg)) {
+                document.body.removeChild(window.__rollTempSvg);
+                window.__rollTempSvg = null;
+            }
+
             runGame();
         });
     });
 
-    let pathD = SVG_PATHS[0]; // default fallback
+    let pathD = SVG_PATHS[0];
 
     function runGame() {
-        if (window.__rollTempSvg) {
-            document.body.removeChild(window.__rollTempSvg);
-        }
         const tempSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         const tempPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         tempPath.setAttribute('d', pathD);
@@ -95,13 +98,14 @@
         window.__rollTempSvg = tempSvg;
 
         const totalLength = tempPath.getTotalLength();
-        let distance = 0;
-        const step = 0.006; // 20% faster
+        distance = 0;
+        const step = 0.006;
         const velocity = step * totalLength;
         const eggColor = getOvaryColor();
         const scaleX = 1.2;
-        const scaleY = (canvas.height / 600) * 1.2;
-        const horizontalOffset = (canvas.width - 900) / 2;
+        const scaleY = canvas.height / 600;
+        const horizontalOffset = -15;
+        const verticalOffset = 40;
 
         function drawEgg(x, y, angle) {
             const width = 40;
@@ -147,7 +151,7 @@
                     const rawPoint = tempPath.getPointAtLength(len);
                     const point = {
                         x: rawPoint.x * scaleX + horizontalOffset,
-                        y: rawPoint.y * scaleY
+                        y: rawPoint.y * scaleY + verticalOffset
                     };
                     if (i === 0) {
                         context.moveTo(point.x, point.y);
@@ -162,12 +166,12 @@
                 const rawCurrent = tempPath.getPointAtLength(distance);
                 const current = {
                     x: rawCurrent.x * scaleX + horizontalOffset,
-                    y: rawCurrent.y * scaleY
+                    y: rawCurrent.y * scaleY + verticalOffset
                 };
                 const rawNext = tempPath.getPointAtLength(Math.min(distance + velocity * 0.5, totalLength));
                 const next = {
                     x: rawNext.x * scaleX + horizontalOffset,
-                    y: rawNext.y * scaleY
+                    y: rawNext.y * scaleY + verticalOffset
                 };
                 const angle = Math.atan2(next.y - current.y, next.x - current.x);
                 lastPoint = current;
@@ -178,9 +182,6 @@
             } else {
                 drawEgg(lastPoint.x, lastPoint.y, lastAngle);
                 cancelAnimationFrame(window.__eggAnimFrame);
-                if (document.body.contains(tempSvg)) {
-                    document.body.removeChild(tempSvg);
-                }
                 roundCount++;
                 localStorage.setItem('resistanceRollRounds', roundCount);
                 if (!triedAvatars.includes(selectedAvatar)) {
