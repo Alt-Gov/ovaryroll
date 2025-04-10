@@ -14,6 +14,8 @@
       "M.77,214.6c11.86,11.24,29.02,13.98,44.62,10.73,16.95-3.54,31.02-14.42,41.54-27.85,11.5-14.69,18.99-31.75,26.15-48.84,3.81-9.09,7.57-18.21,11.96-27.05,2.2-4.43,4.55-8.78,7.13-13,2.4-3.93,4.95-7.83,8.04-11.26s6.4-6.1,10.48-7.89c3.81-1.67,8.01-2.4,12.15-2.43,8.83-.05,17.18,3.1,24.4,8.05s13.54,11.9,18.9,19.03c2.79,3.71,5.41,7.69,9.01,10.69s7.6,4.68,12.13,5.19c8.78,1,17.57-3.05,24.84-7.56,3.98-2.47,7.7-5.3,11.37-8.2,4.31-3.41,8.61-6.81,12.92-10.22,17.23-13.62,34.46-27.25,51.69-40.87,8.61-6.81,17.23-13.62,25.84-20.43,8.09-6.39,16.08-12.93,24.34-19.1,14.05-10.49,30.16-19.94,48.33-18.45,7.4.61,14.95,3.15,20.59,8.09,6.01,5.26,9.41,12.73,10.4,20.59,2.34,18.66-7.06,35.51-15.55,51.36-4.79,8.93-9.18,18.01-12.49,27.61s-5.59,19.43-6.93,29.45c-2.11,15.78-2.94,34.01,5.62,48.2,3.83,6.35,9.82,11.33,17.21,12.81,9.79,1.97,20.02-1.42,29.31-4.28,17.41-5.35,34.36-12.85,49.25-23.42,7.41-5.26,14.33-11.24,20.41-18,6.48-7.19,12.05-15.16,17.22-23.33,9.91-15.64,18.49-32.27,30.59-46.4,11.14-13,25.18-23.84,42.39-26.9,18.28-3.25,36.86,1.3,55.23.76,8.94-.26,17.75-1.8,25.89-5.6,1.22-.57,1.53-2.33.9-3.42-.73-1.25-2.19-1.47-3.42-.9-16.71,7.8-36,4.49-53.7,3.42-9.22-.56-18.54-.65-27.64,1.19-8.52,1.71-16.59,5.34-23.76,10.22-14.69,9.99-25.62,24.39-34.99,39.26-10.17,16.14-19.03,33.34-31.79,47.67-11.96,13.43-27.03,23.64-43.25,31.23-8.16,3.82-16.62,6.95-25.23,9.58-4.56,1.39-9.16,2.73-13.84,3.66s-9.82,1.32-14.55-.16c-13.55-4.25-17.62-21.17-18.12-33.82-.37-9.33.62-18.84,2.3-28.01,1.82-9.9,4.62-19.62,8.38-28.96,7.22-17.95,19.55-33.92,24.14-52.92,3.96-16.36,1.64-35.38-12.56-46.15-13.3-10.1-32.07-9.73-47.01-3.85-8.88,3.5-16.95,8.6-24.61,14.24-8.32,6.12-16.32,12.68-24.42,19.08-17.16,13.57-34.33,27.14-51.49,40.71-8.61,6.81-17.23,13.62-25.84,20.43-4.31,3.41-8.61,6.81-12.92,10.22-3.68,2.91-7.35,5.82-11.3,8.38-6.83,4.43-15.13,8.78-23.55,7.8-9.12-1.06-13.77-9.32-18.89-15.9-11.07-14.21-26.2-26.91-45.12-27.09-9.21-.09-17.94,3.15-24.61,9.54s-11.72,15.22-16.07,23.51c-9.08,17.29-15.31,35.88-23.89,53.39-7.63,15.57-17.34,30.97-31.47,41.44-12.42,9.2-28.57,13.97-43.94,10.83-7.14-1.46-13.82-4.63-19.14-9.67-2.34-2.21-5.88,1.32-3.54,3.54h0Z",
       "M5.01,227.03c1.71-20.63,9.6-40.49,21.76-57.17s29.16-30.5,48.53-38.05c11.49-4.48,24.25-6.95,36.49-4.39,9.59,2,18.26,7.18,24.97,14.26,6.75,7.12,11.43,16.16,13.03,25.86,1.72,10.39-.6,21.06-3.56,31-5.9,19.83-16.79,41.18-10.49,62.27s26.73,32.03,46.92,33.35c12.3.8,24.7-2.08,36.08-6.58,11.22-4.44,22.05-10.27,32.02-17.07,9.09-6.2,17.62-13.6,23.56-22.97,6.27-9.9,8.72-21.61,7.5-33.23-2.57-24.57-17.3-45.51-25.02-68.51-6.91-20.58-10.03-43.42-4.47-64.69,2.75-10.53,7.72-20.39,14.83-28.65,7.66-8.91,17.18-15.95,27.11-22.14,20.2-12.61,43.05-23.61,67.17-25.15,11.3-.72,22.93.76,33.35,5.37,9.31,4.11,17.52,10.37,24.12,18.09,6.52,7.63,11.35,16.74,13.89,26.45,3.17,12.14,2.4,24.94-.07,37.13-5.27,25.99-17.86,50.2-19.86,76.89-1.54,20.58,4.83,43.73,22.67,55.89,16.06,10.94,36.27,8.65,54.29,5.14,9.45-1.84,18.82-4.1,28.34-5.5,8.7-1.28,17.84-1.82,26.38.07,4.29.95,8.35,2.46,12.14,4.65,4.67,2.7,8.67,6.33,12.27,10.34,7.47,8.3,13.21,17.98,20.42,26.5,15.12,17.86,35.66,31.86,59.46,33.93,11.44,1,23.11-.97,33.37-6.2,2.87-1.46.34-5.78-2.52-4.32-10.39,5.3-22.46,6.78-33.95,5.17-11.46-1.6-22.21-6.23-31.73-12.73s-17.49-14.58-24.44-23.51c-6.87-8.82-12.71-18.56-20.88-26.3-7.21-6.84-16.07-11.39-25.9-12.94-9.36-1.48-18.82-.65-28.12.85s-19,3.84-28.53,5.61c-8.95,1.66-18.1,2.89-27.22,2.09s-17.54-3.92-24.29-9.84c-7.51-6.59-12.29-15.69-14.81-25.27-6.36-24.19,2.53-48.73,10.01-71.57,7.78-23.77,14.9-49.91,5.58-74.33-7.45-19.52-23.33-35.58-43.07-42.63-23.34-8.33-48.79-3.22-70.97,6.17-11.19,4.74-21.9,10.62-32.11,17.19s-19.58,13.83-27.1,23.11c-7.04,8.69-12.03,18.81-14.78,29.65s-3.35,21.74-2.49,32.66,3.26,22.44,6.8,33.19c3.78,11.49,9.14,22.32,14.09,33.34s9.8,22.64,11.07,34.79c1.2,11.44-1.27,22.57-7.75,32.13-6.03,8.89-14.66,15.81-23.61,21.6-10.08,6.52-20.9,12.3-32.25,16.29-11.06,3.88-23.17,6.18-34.88,4.38-9.64-1.48-19.14-5.38-26.49-11.89-7.37-6.53-11.99-15.42-12.81-25.26-.88-10.51,1.96-20.87,5.16-30.78,6.46-20.06,15.74-41.45,8.34-62.6-3.38-9.67-9.5-18.39-17.47-24.84-8.41-6.8-18.4-10.9-29.19-11.75-12.85-1.01-25.69,2.44-37.32,7.68-9.65,4.35-18.59,10.16-26.65,17-15.99,13.58-28.28,31.43-35.44,51.13C3.01,206.92.84,216.91,0,227.03c-.11,1.35,1.23,2.5,2.5,2.5,1.45,0,2.39-1.15,2.5-2.5h0Z"
   ];
+  
+
   let selectedAvatar = null;
   let roundCount = parseInt(localStorage.getItem('resistanceRollRounds')) || 0;
   const triedAvatars = JSON.parse(localStorage.getItem('triedAvatars')) || [];
@@ -73,6 +75,7 @@
     messageSection.classList.add('hidden');
     gameSection.classList.remove('hidden');
     context.clearRect(0, 0, canvas.width, canvas.height);
+    cancelAnimationFrame(window.__eggAnimFrame);
     runGame();
   });
 
@@ -83,137 +86,138 @@
       .then(svgText => {
         const parser = new DOMParser();
         const doc = parser.parseFromString(svgText, 'image/svg+xml');
-        const pathD = doc.querySelector('path').getAttribute('d');
-    // Path is now loaded dynamically via fetch below
+        const pathElement = doc.querySelector('path');
+        const pathD = pathElement ? pathElement.getAttribute('d') : SVG_PATHS[selectedAvatar - 1];
 
-    // Create a temporary SVG path element to measure length
-    if (window.__rollTempSvg) {
-      document.body.removeChild(window.__rollTempSvg);
-    }
-    const tempSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    const tempPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    tempPath.setAttribute('d', pathD);
-    tempSvg.setAttribute('viewBox', '0 0 900 600');
-    tempSvg.setAttribute('width', '900');
-    tempSvg.setAttribute('height', '600');
-    tempSvg.appendChild(tempPath);
-    tempSvg.style.position = 'absolute';
-    tempSvg.style.width = '0';
-    tempSvg.style.height = '0';
-    tempSvg.style.overflow = 'hidden';
-    document.body.appendChild(tempSvg);
-    window.__rollTempSvg = tempSvg;
-
-    const totalLength = tempPath.getTotalLength(); // Extend 20px before and after
-    let distance = 0;
-    const maxDistance = totalLength;
-    const step = 0.005;
-    const velocity = step * totalLength;
-    const eggColor = getOvaryColor();
-    const scaleX = 1.2;
-    const scaleY = (canvas.height / 600) * 1.2;
-    const horizontalOffset = (canvas.width - 900) / 2;
-
-    function drawEgg(x, y, angle) {
-      const width = 40;
-      const height = 55;
-      context.save();
-      context.translate(x, y);
-      context.rotate(angle);
-      context.beginPath();
-      context.ellipse(0, 0, width / 2, height / 2, 0, 0, Math.PI * 2);
-      context.fillStyle = eggColor;
-      context.fill();
-      context.closePath();
-      context.restore();
-    }
-
-    function drawFinishLine() {
-      const startX = canvas.width - 80 + 10;
-      const squareSize = 10;
-      const cols = 4;
-      const rows = Math.ceil(canvas.height / squareSize);
-
-      for (let row = 0; row < rows; row++) {
-        for (let col = 0; col < cols; col++) {
-          context.fillStyle = (row + col) % 2 === 0 ? '#000' : '#fff';
-          context.fillRect(startX + col * squareSize, row * squareSize, squareSize, squareSize);
+        if (window.__rollTempSvg) {
+          document.body.removeChild(window.__rollTempSvg);
         }
-      }
-    }
+        const tempSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        const tempPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        tempPath.setAttribute('d', pathD);
+        tempSvg.setAttribute('viewBox', '0 0 900 600');
+        tempSvg.setAttribute('width', '900');
+        tempSvg.setAttribute('height', '600');
+        tempSvg.appendChild(tempPath);
+        tempSvg.style.position = 'absolute';
+        tempSvg.style.width = '0';
+        tempSvg.style.height = '0';
+        tempSvg.style.overflow = 'hidden';
+        document.body.appendChild(tempSvg);
+        window.__rollTempSvg = tempSvg;
 
-    function getPointAtT(t) {
-  const point = tempPath.getPointAtLength(t * totalLength);
-    return {
-    x: point.x * scaleX + horizontalOffset,
-    y: point.y * scaleY
-  };
-}
+        const totalLength = tempPath.getTotalLength();
+        let distance = 0;
+        const maxDistance = totalLength;
+        const step = 0.005;
+        const velocity = step * totalLength;
+        const eggColor = getOvaryColor();
+        const scaleX = 1.2;
+        const scaleY = (canvas.height / 600) * 1.2;
+        const horizontalOffset = (canvas.width - 900) / 2;
 
-    let lastPoint = null;
-    let lastAngle = 0;
-    function update() {
-      function drawDebugPath() {
-        context.beginPath();
-        const steps = 300;
-        for (let i = 0; i <= steps; i++) {
-          const len = (i / steps) * totalLength;
-          const rawPoint = tempPath.getPointAtLength(len);
-          const point = {
-            x: rawPoint.x * scaleX + horizontalOffset,
-            y: rawPoint.y * scaleY
-          };
-          if (i === 0) {
-            context.moveTo(point.x, point.y);
-          } else {
-            context.lineTo(point.x, point.y);
+        function drawEgg(x, y, angle) {
+          const width = 40;
+          const height = 55;
+          context.save();
+          context.translate(x, y);
+          context.rotate(angle);
+          context.beginPath();
+          context.ellipse(0, 0, width / 2, height / 2, 0, 0, Math.PI * 2);
+          context.fillStyle = eggColor;
+          context.fill();
+          context.closePath();
+          context.restore();
+        }
+
+        function drawFinishLine() {
+          const startX = canvas.width - 80 + 10;
+          const squareSize = 10;
+          const cols = 4;
+          const rows = Math.ceil(canvas.height / squareSize);
+
+          for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+              context.fillStyle = (row + col) % 2 === 0 ? '#000' : '#fff';
+              context.fillRect(startX + col * squareSize, row * squareSize, squareSize, squareSize);
+            }
           }
         }
-        context.strokeStyle = '#ccc';
-        context.lineWidth = 2;
-        context.stroke();
-      }
-      if (distance < maxDistance) {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        drawFinishLine();
 
-        const rawCurrent = tempPath.getPointAtLength(distance);
-        const current = {
-          x: rawCurrent.x * scaleX + horizontalOffset,
-          y: rawCurrent.y * scaleY
-        };
-        const rawNext = tempPath.getPointAtLength(Math.min(distance + velocity, maxDistance));
-        const next = {
-          x: rawNext.x * scaleX + horizontalOffset,
-          y: rawNext.y * scaleY
-        };
-        const angle = Math.atan2(next.y - current.y, next.x - current.x);
-        lastPoint = current;
-        lastAngle = angle;
-
-        drawEgg(current.x, current.y, angle);
-        distance += velocity;
-
-        requestAnimationFrame(update);
-      } else {
-        drawEgg(lastPoint.x, lastPoint.y, lastAngle);
-        requestAnimationFrame(() => {
-          document.body.removeChild(tempSvg);
-        roundCount++;
-        localStorage.setItem('resistanceRollRounds', roundCount);
-
-        if (!triedAvatars.includes(selectedAvatar)) {
-          triedAvatars.push(selectedAvatar);
-          localStorage.setItem('triedAvatars', JSON.stringify(triedAvatars));
+        function getPointAtT(t) {
+          const point = tempPath.getPointAtLength(t * totalLength);
+          return {
+            x: point.x * scaleX + horizontalOffset,
+            y: point.y * scaleY
+          };
         }
 
-        gameSection.classList.add('hidden');
-        messageSection.classList.remove('hidden');
-        showResultForAvatar(selectedAvatar);
-        });
-      }
-    }
-    update();
+        let lastPoint = null;
+        let lastAngle = 0;
+        function update() {
+          window.__eggAnimFrame = requestAnimationFrame(update);
+          function drawDebugPath() {
+            context.beginPath();
+            const steps = 300;
+            for (let i = 0; i <= steps; i++) {
+              const len = (i / steps) * totalLength;
+              const rawPoint = tempPath.getPointAtLength(len);
+              const point = {
+                x: rawPoint.x * scaleX + horizontalOffset,
+                y: rawPoint.y * scaleY
+              };
+              if (i === 0) {
+                context.moveTo(point.x, point.y);
+              } else {
+                context.lineTo(point.x, point.y);
+              }
+            }
+            context.strokeStyle = '#ccc';
+            context.lineWidth = 2;
+            context.stroke();
+          }
+
+          if (distance <= maxDistance) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            drawFinishLine();
+
+            const rawCurrent = tempPath.getPointAtLength(distance);
+            const current = {
+              x: rawCurrent.x * scaleX + horizontalOffset,
+              y: rawCurrent.y * scaleY
+            };
+            const rawNext = tempPath.getPointAtLength(Math.min(distance + velocity, maxDistance));
+            const next = {
+              x: rawNext.x * scaleX + horizontalOffset,
+              y: rawNext.y * scaleY
+            };
+            const angle = Math.atan2(next.y - current.y, next.x - current.x);
+            lastPoint = current;
+            lastAngle = angle;
+
+            drawEgg(current.x, current.y, angle);
+            distance += velocity;
+
+            if (distance < maxDistance) requestAnimationFrame(update);
+          } else {
+            drawEgg(lastPoint.x, lastPoint.y, lastAngle);
+            requestAnimationFrame(() => {
+              document.body.removeChild(tempSvg);
+              roundCount++;
+              localStorage.setItem('resistanceRollRounds', roundCount);
+
+              if (!triedAvatars.includes(selectedAvatar)) {
+                triedAvatars.push(selectedAvatar);
+                localStorage.setItem('triedAvatars', JSON.stringify(triedAvatars));
+              }
+
+              gameSection.classList.add('hidden');
+              messageSection.classList.remove('hidden');
+              showResultForAvatar(selectedAvatar);
+            });
+          }
+        }
+        update();
       });
   }
 
