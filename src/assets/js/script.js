@@ -122,9 +122,7 @@
     // Initialize all functions on DOMContentLoaded
     document.addEventListener('DOMContentLoaded', () => {
         initDIE();
-        hasHeroImage();
         tableWrap();
-        toggleMenu();
         toggleSection();
         headerScroll();
         initSmoothScroll();
