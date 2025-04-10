@@ -17,7 +17,6 @@
         "M0,289.26c15.94,8.21,35.49,7.73,52.13,1.07,16.65-6.65,30.57-18.97,41.51-33.17,8.97-11.65,16.63-25.11,29.35-32.46,35.19-20.35,83.82,17.65,118.87-2.93,16.72-9.81,24.29-30.65,23.95-50.03-.34-19.38-7.18-37.97-13.16-56.41s-11.21-37.86-8.25-57.02c3.83-24.81,22.41-46.77,46.24-54.66,30.75-10.18,64.38,2.41,92.23,18.94,14,8.3,27.67,17.92,37.05,31.22,20.64,29.26,15.99,69.85,1.8,102.72-10.57,24.49-26.23,50.46-18.26,75.92,5.61,17.92,21.79,30.32,38.05,39.71,16.64,9.6,35.06,17.5,54.26,17.11,19.2-.39,39.2-10.82,46.04-28.77,11.15-29.26-15.5-60.11-13.62-91.36,1.34-22.15,18.88-42.31,40.64-46.69,14.57-2.93,29.81.69,43.29,6.95,38,17.63,24.59,62.56,66.31,95.15,14.36,11.22,28.12,15.97,32.73,17.44,20.23,6.45,38.05,5.15,48.3,3.58"
     ];
     
-
     let selectedAvatar = null;
     let roundCount = parseInt(localStorage.getItem('resistanceRollRounds')) || 0;
     const triedAvatars = JSON.parse(localStorage.getItem('triedAvatars')) || [];
@@ -27,7 +26,6 @@
     const gameSection = document.getElementById('game-canvas');
     const messageSection = document.getElementById('result');
     const messageBox = document.getElementById('message');
-    const playAgainButton = document.getElementById('play-again');
     const context = canvas.getContext('2d');
 
     const avatarData = [
@@ -62,38 +60,21 @@
         if (triedAvatars.includes(id)) {
             button.classList.add('tried');
         }
-    });
 
-    avatarButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            selectedAvatar = parseInt(button.dataset.id);
-            avatarButtons.forEach(btn => btn.classList.remove('selected'));
-            button.classList.add('selected');
-            gameSection.classList.remove('hidden');
-            runGame();
-        });
-    });
-
-    playAgainButton.addEventListener('click', () => {
-        messageSection.classList.add('hidden');
-        gameSection.classList.remove('hidden');
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        cancelAnimationFrame(window.__eggAnimFrame);
-        runGame();
-    });
-
-    let pathD = SVG_PATHS[0]; // default fallback
-
-    avatarButtons.forEach(button => {
         button.addEventListener('click', () => {
             selectedAvatar = parseInt(button.dataset.id);
             pathD = SVG_PATHS[selectedAvatar - 1];
             avatarButtons.forEach(btn => btn.classList.remove('selected'));
             button.classList.add('selected');
+            messageSection.classList.add('hidden');
             gameSection.classList.remove('hidden');
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            cancelAnimationFrame(window.__eggAnimFrame);
             runGame();
         });
     });
+
+    let pathD = SVG_PATHS[0]; // default fallback
 
     function runGame() {
         if (window.__rollTempSvg) {
@@ -115,7 +96,7 @@
 
         const totalLength = tempPath.getTotalLength();
         let distance = 0;
-        const step = 0.006; // increased from 0.005 to speed up 20%
+        const step = 0.006; // 20% faster
         const velocity = step * totalLength;
         const eggColor = getOvaryColor();
         const scaleX = 1.2;
@@ -221,7 +202,13 @@
     function showResultForAvatar(index) {
         const data = avatarData[index - 1];
 
-        messageBox.textContent = data.message;
+        const triedAllAvatars = [1, 2, 3, 4].every(id => triedAvatars.includes(id));
+
+        if (triedAllAvatars) {
+            messageBox.innerHTML = `Eggstraordinary work, super reSister! Nothing can slow your roll.`;
+        } else {
+            messageBox.textContent = data.message;
+        }
 
         document.querySelectorAll('#info-sections > section').forEach(section => {
             section.classList.add('hidden');
