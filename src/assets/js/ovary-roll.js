@@ -314,9 +314,8 @@ class OvaryRollGame {
         document.querySelectorAll('.egg-button').forEach(button => {
             button.addEventListener('click', () => {
                 const text = `Rolling for reproductive rights! ${button.alt} #OvaryRoll`;
-                // Use the full GitHub Pages URL for the image
-                const imagePath = button.getAttribute('src').replace(/^src\//, '');
-                const imageUrl = `https://alt-gov.github.io/ovaryroll/${imagePath}`;
+                // Use the exact URL format for the image
+                const imageUrl = `https://alt-gov.github.io/ovaryroll/${button.getAttribute('src')}`;
                 console.log('Image URL:', imageUrl);
                 // Create the Bluesky intent URL with both text and image
                 const blueskyUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(text)}&image=${encodeURIComponent(imageUrl)}`;
