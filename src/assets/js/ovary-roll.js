@@ -23,32 +23,40 @@
     const TRUMP_IMAGE = new Image();
     TRUMP_IMAGE.src = './src/assets/images/angry-trump.svg';
 
+    const TRUMP_RASP_IMAGE = new Image();
+    TRUMP_RASP_IMAGE.src = './src/assets/images/raspberry-trump.svg';
+
     const OBSTACLE_IMAGES = {
         bush: OBSTACLE_IMAGE,
-        trump: TRUMP_IMAGE
+        trump: TRUMP_IMAGE,
+        neener: TRUMP_RASP_IMAGE
     };
 
     const OBSTACLES = {
         1: [
             { t: 0.05, offsetX: 20, offsetY: 20, scale: 2, type: 'bush' },
             { t: 0.8, offsetX: 70, offsetY: -30, scale: 1.5, type: 'bush' },
-            { t: 0.3, offsetX: -10, offsetY: -120, scale: 1.5, type: 'trump' }
+            { t: 0.3, offsetX: -10, offsetY: -120, scale: 1.5, type: 'trump' },
+            { t: 0.7, offsetX: -40, offsetY: -20, scale: 2.5, type: 'neener' }
         ],
         2: [
             { t: 0, offsetX: 20, offsetY: 0, scale: 1, type: 'bush' },
             { t: 0.4, offsetX: 20, offsetY: -50, scale: 1.6, type: 'bush' },
-            { t: 0.5, offsetX: 70, offsetY: -250, scale: 1.2, type: 'trump' }
+            { t: 0.5, offsetX: 70, offsetY: -250, scale: 1.2, type: 'trump' },
+            { t: 0.0, offsetX: 0, offsetY: 100, scale: 2.5, type: 'neener' }
         ],
         3: [
             { t: 0.0, offsetX: 20, offsetY: 40, scale: 2, type: 'bush' },
             { t: 0.3, offsetX: 10, offsetY: -190, scale: 1, type: 'bush' },
             { t: 0.7, offsetX: 30, offsetY: -20, scale: 1.5, type: 'bush' },
-            { t: 0.2, offsetX: 20, offsetY: -80, scale: 1.3, type: 'trump' }
+            { t: 0.2, offsetX: 20, offsetY: -80, scale: 1.3, type: 'trump' },
+            { t: 0.6, offsetX: 0, offsetY: -120, scale: 2.2, type: 'neener' }
         ],
         4: [
             { t: 0.0, offsetX: 10, offsetY: -240, scale: 2, type: 'bush' },
             { t: 0.7, offsetX: 20, offsetY: -140, scale: 1.4, type: 'bush' },
-            { t: 0.3, offsetX: 40, offsetY: -20, scale: 2, type: 'trump' }
+            { t: 0.3, offsetX: 40, offsetY: -20, scale: 2, type: 'trump' },
+            { t: 0.1, offsetX: -30, offsetY: 0, scale: 3, type: 'neener' }
         ]
     };
 
@@ -107,7 +115,19 @@
 
     let pathD = SVG_PATHS[0];
 
-    function drawObstacles(getPointAtT) {
+    function drawObstacleWithPop(ctx, img, x, y, scale, progress) {
+        const popProgress = Math.min(progress * 4, 1);
+        const baseSize = 50;
+        const w = baseSize * scale * popProgress;
+        const h = baseSize * scale * popProgress;
+        ctx.save();
+        ctx.translate(x + w / 2, y + h / 2);
+        ctx.scale(popProgress, popProgress);
+        ctx.drawImage(img, -w / 2, -h / 2, w, h);
+        ctx.restore();
+    }
+
+    function drawObstacles(getPointAtT, progressRatio = 1) {
         const obstacles = OBSTACLES[selectedAvatar] || [];
         for (const obs of obstacles) {
             const pt = getPointAtT(obs.t);
@@ -117,10 +137,14 @@
             const baseSize = 50;
             const w = baseSize * scale;
             const h = baseSize * scale;
-            context.drawImage(img, pt.x + obs.offsetX, pt.y + obs.offsetY, w, h);
+
+            if (obs.type === 'neener') {
+                drawObstacleWithPop(context, img, pt.x + obs.offsetX, pt.y + obs.offsetY, scale, progressRatio);
+            } else {
+                context.drawImage(img, pt.x + obs.offsetX, pt.y + obs.offsetY, w, h);
+            }
         }
     }
-
     function drawDebugPath(tempPath, totalLength, getPointAtT) {
         const steps = 300;
         context.beginPath();
@@ -133,9 +157,9 @@
                 context.lineTo(point.x, point.y);
             }
         }
-        // context.strokeStyle = '#ccc';
-        // context.lineWidth = 2;
-        // context.stroke();
+        context.strokeStyle = '#6aab43';
+        context.lineWidth = 2;
+        context.stroke();
     }
 
     function runGame() {
