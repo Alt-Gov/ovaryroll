@@ -297,8 +297,9 @@ class OvaryRollGame {
             await this.renderer.initialize();
             this.setupEventListeners();
             this.updateTriedClasses();
-            // Hide the game canvas initially
+            // Hide the game canvas and egg messages initially
             this.gameSection.classList.add('hidden');
+            document.querySelector('.egg-messages').classList.remove('show');
         } catch (error) {
             ErrorHandler.handleError(error, 'Game initialization');
         }
@@ -308,6 +309,20 @@ class OvaryRollGame {
         this.avatarButtons.forEach(button => {
             button.addEventListener('click', () => this.handleAvatarSelection(button));
         });
+
+        // Add click handlers for egg buttons to open Bluesky compose
+        document.querySelectorAll('.egg-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const text = `Rolling for reproductive rights! ${button.alt} #OvaryRoll`;
+                // Use the full GitHub Pages URL for the image
+                const imagePath = button.getAttribute('src').replace(/^src\//, '');
+                const imageUrl = `https://alt-gov.github.io/ovaryroll/${imagePath}`;
+                console.log('Image URL:', imageUrl);
+                // Create the Bluesky intent URL with both text and image
+                const blueskyUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(text)}&image=${encodeURIComponent(imageUrl)}`;
+                window.open(blueskyUrl, '_blank');
+            });
+        });
     }
 
     handleAvatarSelection(button) {
@@ -316,6 +331,9 @@ class OvaryRollGame {
         this.avatarButtons.forEach(btn => btn.classList.remove('selected'));
         button.classList.add('selected');
         this.messageSection.classList.add('hidden');
+        
+        // Hide egg-messages when starting a new roll
+        document.querySelector('.egg-messages').classList.remove('show');
         
         // Show the game canvas when an egg is clicked
         this.gameSection.classList.remove('hidden');
@@ -465,6 +483,9 @@ class OvaryRollGame {
         document.getElementById('info-sections').classList.remove('hidden');
         this.gameSection.classList.add('hidden');
         this.messageSection.classList.remove('hidden');
+
+        // Show egg-messages section at the end of each roll
+        document.querySelector('.egg-messages').classList.add('show');
     }
 }
 
