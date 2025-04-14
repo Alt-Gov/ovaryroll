@@ -138,14 +138,9 @@
     &.show {
         display: block;
     }
-
-    h2 {
-        margin-bottom: utilities.$space-xl;
-    }
-
     .egg-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr));
         gap: utilities.$space-lg;
         padding: 0 utilities.$space-lg;
 

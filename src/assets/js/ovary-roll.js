@@ -444,10 +444,10 @@ class OvaryRollGame {
                     : avatarData[this.gameState.selectedAvatar - 1].message;
 
                 const text = `${message} I've got a special message for you from ovaryroll.com: ${button.alt}`;
-                // Use the absolute URL for the image
-                const imageUrl = `https://ovaryroll.com/${button.getAttribute('src')}`;
-                // Create the Bluesky intent URL with both text and image
-                const blueskyUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(text)}&image=${encodeURIComponent(imageUrl)}`;
+                
+                // Create the Bluesky URL with just text since image sharing requires the AT Protocol SDK
+                const blueskyUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(text)}`;
+                
                 window.open(blueskyUrl, '_blank');
             });
         });

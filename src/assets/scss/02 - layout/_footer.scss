@@ -3,13 +3,13 @@
 
 .site-wrap {
   footer {
-    border-top: 4px solid utilities.$secondary;
-    background: url(/themes/custom/base/assets/img/footer-pattern.svg) repeat utilities.$primary-xdk;
+    background: #000;
     color: #fff;
+    text-align: center;
   }
 
   .footer {
-    padding: utilities.$space-xl 0 utilities.$space-md;
+    padding: utilities.$space-md 0;
 
     @include utilities.breakpoint(sm-max) {
       padding: utilities.$space-lg utilities.$space-sm;
