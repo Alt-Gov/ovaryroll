@@ -1,11 +1,11 @@
 // Error handling utility
-const ErrorHandler = {
-    handleError: (error, context) => {
+class ErrorHandler {
+    static handleError(error, context) {
         console.error(`Error in ${context}:`, error);
         // Could add error reporting service integration here
-    },
+    }
     
-    safeLocalStorage: {
+    static safeLocalStorage = {
         getItem: (key) => {
             try {
                 return localStorage.getItem(key);
@@ -22,8 +22,8 @@ const ErrorHandler = {
                 ErrorHandler.handleError(error, 'localStorage.setItem');
             }
         }
-    }
-};
+    };
+}
 
 // Asset Manager
 class AssetManager {
@@ -72,8 +72,8 @@ class AssetManager {
 
 // Game Configuration
 const GAME_CONFIG = {
-    canvasWidth: 900,
-    canvasHeight: 600,
+    baseWidth: 900,
+    baseHeight: 600,
     eggWidth: 40,
     eggHeight: 55,
     finishLineWidth: 80,
@@ -82,7 +82,8 @@ const GAME_CONFIG = {
     velocityStep: 0.0048,
     scaleX: 1.15,
     scaleY: 1.15,
-    verticalOffset: 40
+    verticalOffset: 40,
+    currentScale: 1
 };
 
 // Game State Manager
@@ -112,6 +113,8 @@ class GameRenderer {
         this.canvas = canvas;
         this.context = context;
         this.assetManager = new AssetManager();
+        this.boundHandleResize = this.handleResize.bind(this);
+        window.addEventListener('resize', this.boundHandleResize);
     }
 
     async initialize() {
@@ -119,13 +122,35 @@ class GameRenderer {
         this.setupCanvas();
     }
 
+    handleResize() {
+        this.setupCanvas();
+        // Redraw the current state
+        if (this.lastDrawState) {
+            const { distance, totalLength } = this.lastDrawState;
+            this.renderFrame(distance, totalLength);
+        }
+    }
+
     setupCanvas() {
-        this.canvas.width = GAME_CONFIG.canvasWidth;
-        this.canvas.height = GAME_CONFIG.canvasHeight;
+        const containerWidth = this.canvas.parentElement.clientWidth;
+        const scale = Math.min(1, containerWidth / GAME_CONFIG.baseWidth);
+        
+        this.canvas.width = GAME_CONFIG.baseWidth * scale;
+        this.canvas.height = GAME_CONFIG.baseHeight * scale;
+        
+        // Update all scale factors for drawing
+        GAME_CONFIG.currentScale = scale;
+        GAME_CONFIG.scaleX = 1.15 * scale;
+        GAME_CONFIG.scaleY = 1.15 * scale;
+        GAME_CONFIG.eggWidth = 40 * scale;
+        GAME_CONFIG.eggHeight = 55 * scale;
+        GAME_CONFIG.finishLineWidth = 80 * scale;
+        GAME_CONFIG.finishLineSquareSize = Math.max(5, 10 * scale);
+        GAME_CONFIG.verticalOffset = 40 * scale;
     }
 
     drawFinishLine() {
-        const startX = this.canvas.width - GAME_CONFIG.finishLineWidth + 10;
+        const startX = this.canvas.width - GAME_CONFIG.finishLineWidth + (10 * GAME_CONFIG.currentScale);
         const rows = Math.ceil(this.canvas.height / GAME_CONFIG.finishLineSquareSize);
 
         for (let row = 0; row < rows; row++) {
@@ -154,53 +179,51 @@ class GameRenderer {
     }
 
     drawObstacleWithPop(img, x, y, scale, progress) {
-        const baseSize = 50;
+        const baseSize = 50 * GAME_CONFIG.currentScale;
         const w = baseSize * scale;
         const h = baseSize * scale;
 
         this.context.save();
         this.context.translate(x + w / 2, y + h / 2);
-        
-        // Start with the image flat on the ground (scaled to 0 height)
-        // and gradually increase its height while keeping the bottom edge fixed
         const heightScale = progress;
         this.context.scale(1, heightScale);
-        
-        // Draw the image, keeping the bottom edge at the same position
         this.context.drawImage(img, -w / 2, -h / 2, w, h);
         this.context.restore();
     }
 
     drawObstacles(getPointAtT, progressRatio = 1, avatarId, eggPosition) {
         const obstacles = OBSTACLES[avatarId] || [];
+        const mobileScale = GAME_CONFIG.currentScale;
+        
         for (const obs of obstacles) {
             const pt = getPointAtT(obs.t);
             const img = this.assetManager.getImage(obs.type);
             if (!img || !img.complete) continue;
+            
             const scale = (obs.scale || 1) * 1.5;
-            const baseSize = 50;
+            const baseSize = 50 * mobileScale;
             const w = baseSize * scale;
             const h = baseSize * scale;
+            const offsetX = obs.offsetX * mobileScale;
+            const offsetY = obs.offsetY * mobileScale;
 
             if (obs.type === 'neener' || obs.type === 'trump') {
-                // Calculate distance between egg and obstacle
                 const dx = pt.x - eggPosition.x;
                 const dy = pt.y - eggPosition.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
+                const triggerDistance = 10 * mobileScale;
                 
-                // If egg is within 10px or obstacle has been triggered, show it
-                if (distance <= 10 || obs.triggered) {
+                if (distance <= triggerDistance || obs.triggered) {
                     if (!obs.triggered) {
                         obs.triggered = true;
                         obs.animationProgress = 0;
                     }
                     
-                    // Animate the standing up effect
                     obs.animationProgress = Math.min(1, (obs.animationProgress || 0) + 0.1);
-                    this.drawObstacleWithPop(img, pt.x + obs.offsetX, pt.y + obs.offsetY, scale, obs.animationProgress);
+                    this.drawObstacleWithPop(img, pt.x + offsetX, pt.y + offsetY, scale, obs.animationProgress);
                 }
             } else {
-                this.context.drawImage(img, pt.x + obs.offsetX, pt.y + obs.offsetY, w, h);
+                this.context.drawImage(img, pt.x + offsetX, pt.y + offsetY, w, h);
             }
         }
     }
@@ -222,8 +245,94 @@ class GameRenderer {
             }
         }
         this.context.strokeStyle = 'rgba(106, 171, 67, 0.5)';
-        this.context.lineWidth = 5;
+        this.context.lineWidth = 5 * GAME_CONFIG.currentScale;
         this.context.stroke();
+    }
+
+    renderFrame(distance, totalLength) {
+        this.lastDrawState = { distance, totalLength };
+        this.renderer.clearCanvas();
+        this.renderer.drawFinishLine();
+        
+        const getPointAtT = this.createPointCalculator(totalLength);
+        const current = getPointAtT(distance / totalLength);
+        const next = getPointAtT(Math.min((distance + GAME_CONFIG.velocityStep * totalLength * 0.5) / totalLength, 1));
+        const angle = Math.atan2(next.y - current.y, next.x - current.x);
+        
+        // Draw path
+        this.renderer.drawPath(getPointAtT, distance / totalLength);
+        
+        // Draw obstacles with current egg position
+        this.renderer.drawObstacles(getPointAtT, distance / totalLength, this.gameState.selectedAvatar, current);
+        
+        // Draw egg
+        this.renderer.drawEgg(current.x, current.y, angle, EGG_COLORS[Object.keys(EGG_COLORS)[this.gameState.selectedAvatar - 1]]);
+    }
+
+    createPointCalculator(totalLength) {
+        const scaleX = GAME_CONFIG.scaleX;
+        const scaleY = GAME_CONFIG.scaleY;
+        const horizontalOffset = (this.canvas.width - (GAME_CONFIG.baseWidth * GAME_CONFIG.currentScale)) / 2;
+        
+        return (t) => {
+            const point = this.tempSvg.querySelector('path').getPointAtLength(t * totalLength);
+            return {
+                x: point.x * scaleX + horizontalOffset,
+                y: point.y * scaleY + GAME_CONFIG.verticalOffset
+            };
+        };
+    }
+
+    finishGame() {
+        this.gameState.updateRoundCount();
+        this.gameState.addTriedAvatar(this.gameState.selectedAvatar);
+        this.updateTriedClasses();
+        
+        if (this.tempSvg && document.body.contains(this.tempSvg)) {
+            document.body.removeChild(this.tempSvg);
+        }
+        
+        this.showResult();
+    }
+
+    hideInfoSections() {
+        document.getElementById('info-sections').classList.add('hidden');
+        document.querySelectorAll('#info-sections > section').forEach(section => {
+            section.classList.add('hidden');
+        });
+    }
+
+    showResult() {
+        const avatarData = [
+            { message: 'Nice roll! Reproductive rights are human rights.', sectionId: 'repo-rights' },
+            { message: 'Healthcare matters — and so does your roll.', sectionId: 'health-care' },
+            { message: 'You rolled for equity. You legend.', sectionId: 'equal-employment' },
+            { message: 'Voting protections unlocked. Keep it rolling.', sectionId: 'voting-protections' }
+        ];
+        
+        const data = avatarData[this.gameState.selectedAvatar - 1];
+        this.messageBox.textContent = (new Set(this.gameState.triedAvatars)).size >= 4
+            ? 'Eggstraordinary work, super reSister! Nothing can slow your roll.'
+            : data.message;
+
+        this.hideInfoSections();
+        
+        const section = document.getElementById(data.sectionId);
+        if (section) {
+            section.classList.remove('hidden');
+        }
+        
+        document.getElementById('info-sections').classList.remove('hidden');
+        this.gameSection.classList.add('hidden');
+        this.messageSection.classList.remove('hidden');
+
+        // Show egg-messages section at the end of each roll
+        document.querySelector('.egg-messages').classList.add('show');
+    }
+
+    // Clean up when needed
+    destroy() {
+        window.removeEventListener('resize', this.boundHandleResize);
     }
 }
 
@@ -428,8 +537,8 @@ class OvaryRollGame {
 
     createPointCalculator(totalLength) {
         const scaleX = GAME_CONFIG.scaleX;
-        const scaleY = (this.canvas.height / 600) * GAME_CONFIG.scaleY;
-        const horizontalOffset = (this.canvas.width - 900) / 2;
+        const scaleY = GAME_CONFIG.scaleY;
+        const horizontalOffset = (this.canvas.width - (GAME_CONFIG.baseWidth * GAME_CONFIG.currentScale)) / 2;
         
         return (t) => {
             const point = this.tempSvg.querySelector('path').getPointAtLength(t * totalLength);

@@ -1,17 +1,57 @@
 @use '../utilities' as utilities;
+@use "sass:math";
 
 @keyframes eggShake {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(2deg); }
-    50% { transform: rotate(-2deg); }
-    75% { transform: rotate(2deg); }
-    100% { transform: rotate(0deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(2deg);
+    }
+
+    50% {
+        transform: rotate(-2deg);
+    }
+
+    75% {
+        transform: rotate(2deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
 }
 
 .game {
     background: url(../images/grasses.svg) #9ac53c;
     background-size: 33%;
     text-align: center;
+
+    h2 {
+        color: #fff;
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+
+        &::before {
+            content: attr(title);
+            position: absolute;
+            text-stroke: 5px utilities.$primary-dk;
+            -webkit-text-stroke:  5px utilities.$primary-dk;
+            left: 0;
+            z-index: -1;
+        }
+
+        &::after {
+            content: attr(title);
+            position: absolute;
+            text-stroke: 20px utilities.$primary-xdk;
+            -webkit-text-stroke:20px utilities.$primary-xdk;
+            left: 0;
+            z-index: -2;
+        }
+    }
 
     .hidden {
         display: none;
@@ -30,10 +70,15 @@
         border: none;
         border-radius: 50% 50% 45% 45%;
         cursor: pointer;
-        transition: transform 0.2s ease;
+        transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         animation: eggShake 1.5s infinite;
 
-        &:nth-of-type(1) {            
+        @include utilities.breakpoint(xs){
+            width: 80px;
+            height: 120px;
+        }
+
+        &:nth-of-type(1) {
             animation: eggShake 1.5s infinite .5s;
             background: utilities.$pink;
             background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23dd4b63' fill-opacity='0.99'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
@@ -57,17 +102,13 @@
         }
 
         &.selected {
-            -webkit-box-shadow: 0px 0px 10px 5px rgba(#000, 0.5);
-            -moz-box-shadow: 0px 0px 10px 5px rgba(#000, 0.5);
-            box-shadow: 0px 0px 10px 5px rgba(#000, 0.5);
+            box-shadow: 0 0 0.625rem 0.3125rem rgba(#000, 0.5);
         }
 
         &.tried {
-            -webkit-box-shadow: 0px 0px 10px 5px rgba(#fff, 0.5);
-            -moz-box-shadow: 0px 0px 10px 5px rgba(#fff, 0.5);
-            box-shadow: 0px 0px 10px 5px rgba(#fff, 0.5);
+            box-shadow: 0 0 0.625rem 0.3125rem rgba(#fff, 0.5);
             transform: scale(.8) rotate(var(--egg-rotation, 0deg));
-            animation: none;       
+            animation: none;
         }
 
         &:hover {
@@ -104,7 +145,7 @@
 
     .egg-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
         gap: utilities.$space-lg;
         padding: 0 utilities.$space-lg;
 
@@ -112,7 +153,7 @@
             width: 100%;
             height: auto;
             border-radius: 50% 50% 45% 45%;
-            transition: transform 0.2s ease;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             animation: eggShake 2s infinite;
 
@@ -124,9 +165,24 @@
             // Add staggered animations
             @for $i from 1 through 12 {
                 &:nth-child(#{$i}) {
-                    animation: eggShake #{2 + random(10)/10}s infinite #{random(10)/10}s;
+                    animation: eggShake #{2 + math.div(math.random(10), 10)}s infinite #{math.div(math.random(10), 10)}s;
                 }
             }
         }
+    }
+}
+
+#game-canvas {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+
+    canvas {
+        width: 100%;
+        height: auto;
+        max-width: 900px;
+        margin-top: 1rem;
     }
 }
