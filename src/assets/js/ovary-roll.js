@@ -57,7 +57,10 @@ class AssetManager {
             await Promise.all([
                 this.loadImage('./src/assets/images/bush.svg', 'bush'),
                 this.loadImage('./src/assets/images/angry-trump.svg', 'trump'),
-                this.loadImage('./src/assets/images/raspberry-trump.svg', 'neener')
+                this.loadImage('./src/assets/images/raspberry-trump.svg', 'neener'),
+                this.loadImage('./src/assets/images/kiss-trump.svg', 'trump-kiss'),
+                this.loadImage('./src/assets/images/smug-trump.svg', 'trump-smug'),
+                this.loadImage('./src/assets/images/sad-ovary.svg', 'ovary')
             ]);
             this.loaded = true;
         } catch (error) {
@@ -207,11 +210,13 @@ class GameRenderer {
             const offsetX = obs.offsetX * mobileScale;
             const offsetY = obs.offsetY * mobileScale;
 
-            if (obs.type === 'neener' || obs.type === 'trump') {
-                const dx = pt.x - eggPosition.x;
-                const dy = pt.y - eggPosition.y;
+            // Only bushes should not be animated
+            if (obs.type !== 'bush') {
+                const dx = pt.x - eggPosition.x + offsetX;
+                const dy = pt.y - eggPosition.y + offsetY;
                 const distance = Math.sqrt(dx * dx + dy * dy);
-                const triggerDistance = 10 * mobileScale;
+                // Increase trigger distance back to 100px (scaled for mobile)
+                const triggerDistance = 100 * mobileScale;
                 
                 if (distance <= triggerDistance || obs.triggered) {
                     if (!obs.triggered) {
@@ -357,28 +362,32 @@ const SVG_PATHS = [
 
 const OBSTACLES = {
     1: [
-        { t: 0.05, offsetX: 20, offsetY: 20, scale: 2, type: 'bush' },
         { t: 0.8, offsetX: 70, offsetY: -30, scale: 1.5, type: 'bush' },
-        { t: 0.3, offsetX: -10, offsetY: -120, scale: 1.5, type: 'trump' },
+        { t: 0.3, offsetX: -20, offsetY: -160, scale: 1.8, type: 'bush' },
+        { t: 0.05, offsetX: 20, offsetY: 20, scale: 2.3, type: 'trump-smug' },
+        { t: 0.6, offsetX: 45, offsetY: -120, scale: 1.5, type: 'ovary' },
         { t: 0.7, offsetX: -40, offsetY: -20, scale: 2.5, type: 'neener' }
     ],
     2: [
-        { t: 0, offsetX: 20, offsetY: 0, scale: 1, type: 'bush' },
-        { t: 0.4, offsetX: 20, offsetY: -50, scale: 1.6, type: 'bush' },
-        { t: 0.5, offsetX: 70, offsetY: -250, scale: 1.2, type: 'trump' },
-        { t: 0.0, offsetX: 0, offsetY: 100, scale: 2.5, type: 'neener' }
+        { t: 0.1, offsetX: 110, offsetY: -10, scale: 1, type: 'bush' },
+        { t: 0.5, offsetX: 70, offsetY: -250, scale: 1.2, type: 'bush' },
+        { t: 0.3, offsetX: 150, offsetY: -60, scale: 1.8, type: 'ovary' },
+        { t: 0.8, offsetX: 20, offsetY: 40, scale: 2.4, type: 'trump' },
+        { t: 0.0, offsetX: 0, offsetY: 50, scale: 2.2, type: 'trump-kiss' }
     ],
     3: [
         { t: 0.0, offsetX: 20, offsetY: 40, scale: 2, type: 'bush' },
         { t: 0.3, offsetX: 10, offsetY: -190, scale: 1, type: 'bush' },
         { t: 0.7, offsetX: 30, offsetY: -20, scale: 1.5, type: 'bush' },
         { t: 0.2, offsetX: 20, offsetY: -80, scale: 1.3, type: 'trump' },
+        { t: 0.3, offsetX: 60, offsetX: -100, scale: 2, type: 'ovary' },
         { t: 0.6, offsetX: 0, offsetY: -120, scale: 2.2, type: 'neener' }
     ],
     4: [
         { t: 0.0, offsetX: 10, offsetY: -240, scale: 2, type: 'bush' },
         { t: 0.7, offsetX: 20, offsetY: -140, scale: 1.4, type: 'bush' },
-        { t: 0.3, offsetX: 40, offsetY: -20, scale: 2, type: 'trump' },
+        { t: 0.3, offsetX: 40, offsetY: -20, scale: 1.8, type: 'trump-kiss' },
+        { t: 0.5, offsetX: -10, offsetY: 70, scale: 1.5, type: 'ovary' },
         { t: 0.1, offsetX: -30, offsetY: 0, scale: 3, type: 'neener' }
     ]
 };
@@ -422,10 +431,21 @@ class OvaryRollGame {
         // Add click handlers for egg buttons to open Bluesky compose
         document.querySelectorAll('.egg-button').forEach(button => {
             button.addEventListener('click', () => {
-                const text = `Rolling for reproductive rights! ${button.alt} #OvaryRoll`;
-                // Use the exact URL format for the image
-                const imageUrl = `https://alt-gov.github.io/ovaryroll/${button.getAttribute('src')}`;
-                console.log('Image URL:', imageUrl);
+                const avatarData = [
+                    { message: 'Nice roll! Reproductive rights are human rights.' },
+                    { message: 'Healthcare matters — and so does your roll.' },
+                    { message: 'You rolled for equity. You legend.' },
+                    { message: 'Voting protections unlocked. Keep it rolling.' }
+                ];
+                
+                // Get the success message based on the current avatar
+                const message = (new Set(this.gameState.triedAvatars)).size >= 4
+                    ? 'Eggstraordinary work, super reSister! Nothing can slow your roll.'
+                    : avatarData[this.gameState.selectedAvatar - 1].message;
+
+                const text = `${message} I've got a special message for you from ovaryroll.com: ${button.alt}`;
+                // Use the absolute URL for the image
+                const imageUrl = `https://ovaryroll.com/${button.getAttribute('src')}`;
                 // Create the Bluesky intent URL with both text and image
                 const blueskyUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(text)}&image=${encodeURIComponent(imageUrl)}`;
                 window.open(blueskyUrl, '_blank');
@@ -450,7 +470,7 @@ class OvaryRollGame {
         // Reset all obstacle states for the selected avatar
         const obstacles = OBSTACLES[id] || [];
         obstacles.forEach(obs => {
-            if (obs.type === 'neener' || obs.type === 'trump') {
+            if (obs.type !== 'bush') {
                 obs.triggered = false;
                 obs.animationProgress = 0;
             }
