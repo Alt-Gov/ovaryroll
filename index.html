@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ovary Roll - Roll for Reproductive Rights</title>
+  <link rel="icon" type="image/png" href="src/assets/images/favicon.png">
 
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="Ovary Roll - Roll for Reproductive Rights">
@@ -22,6 +23,8 @@
   <meta name="twitter:image" content="https://ovaryroll.com/src/assets/images/poster.png">
 
   <link rel="stylesheet" href="src/assets/css/styles.min.css">
+  <!-- Add Masonry library -->
+  <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 </head>
 
 <body>
@@ -335,6 +338,22 @@
           </div>
         </div>
       </section>
+      <section class="social-wall">
+        <div class="container">
+          <h2>Join the conversation</h2>
+          <p class="lead">See what others are saying about Ovary Roll and join the movement for reproductive rights.</p>
+          <div class="masonry-grid">
+            <!-- Posts will be dynamically added here -->
+          </div>
+          <div class="social-links">
+            <p>
+              <a href="https://bsky.app/profile/ovaryroll.bsky.social" target="_blank" class="bsky-link">Follow us on Bluesky</a>
+              <span class="separator">•</span>
+              <a href="https://bsky.app/search?q=%23OvaryRoll" target="_blank" class="hashtag-link">See all #OvaryRoll posts</a>
+            </p>
+          </div>
+        </div>
+      </section>
     </main>
     <footer class="footer">
       <div class="container">
@@ -344,6 +363,8 @@
   </div>
   <script src="src/assets/js/script.js"></script>
   <script src="src/assets/js/ovary-roll.js"></script>
+  <!-- Add social wall script -->
+  <script src="src/assets/js/social-wall.js"></script>
 </body>
 
 </html>
