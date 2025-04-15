@@ -19,17 +19,17 @@
     }
 
     .post {
-        width: 33.333%;
+        width: 100%;
         padding: 0 utilities.$space-md;
         margin-bottom: utilities.$space-lg;
         position: relative !important;
         
         @include utilities.breakpoint(lg) {
-            width: 50%;
+            width: 33.333%;
         }
         
         @include utilities.breakpoint(md) {
-            width: 100%;
+            width: 50%;
         }
 
         &__inner {
@@ -69,6 +69,10 @@
             color: utilities.$gray;
             font-size: 0.875rem;
             margin-left: utilities.$space-xs;
+        
+            @include utilities.breakpoint(xs) {
+                display: none;
+            }
         }
 
         &__time {
@@ -94,13 +98,11 @@
                 max-width: 100%;
                 height: auto;
                 margin: utilities.$space-sm 0;
-                border-radius: utilities.$border-radius;
             }
         }
 
         &__media {
             margin-top: 1rem;
-            border-radius: 0.5rem;
             overflow: hidden;
             
             img {
