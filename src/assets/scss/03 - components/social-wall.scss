@@ -15,14 +15,12 @@
     .masonry-grid {
         margin: 0 -#{utilities.$space-md};
         position: relative;
-        height: auto !important;
     }
 
     .post {
         width: 100%;
         padding: 0 utilities.$space-md;
         margin-bottom: utilities.$space-lg;
-        position: relative !important;
         
         @include utilities.breakpoint(lg) {
             width: 33.333%;
@@ -61,18 +59,15 @@
         }
 
         &__name {
+            font-size: utilities.$font-sm;
             font-weight: 600;
             color: utilities.$gray-dk;
         }
 
         &__handle {
             color: utilities.$gray;
-            font-size: 0.875rem;
             margin-left: utilities.$space-xs;
-        
-            @include utilities.breakpoint(xs) {
-                display: none;
-            }
+            display: none;
         }
 
         &__time {
